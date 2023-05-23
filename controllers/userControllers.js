@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 
 
 // email config
-const tarnsporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: process.env.EMAIL,
@@ -13,7 +13,7 @@ const tarnsporter = nodemailer.createTransport({
 })
 
 
-exports.userregister = async (req, res) => {
+exports.userRegister = async (req, res) => {
     const { fname, email, password } = req.body;
 
     if (!fname || !email || !password) {
@@ -21,10 +21,10 @@ exports.userregister = async (req, res) => {
     }
 
     try {
-        const presuer = await users.findOne({ email: email });
+        const preUser = await users.findOne({ email: email });
 
-        if (presuer) {
-            res.status(400).json({ error: "This User Allready exist in our db" })
+        if (preUser) {
+            res.status(400).json({ error: "This User Already exist in our db" })
         } else {
             const userregister = new users({
                 fname, email, password
